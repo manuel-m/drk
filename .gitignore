@@ -1,0 +1,5 @@
+ops/ansible/k3s-ansible/hosts.ini
+notes.txt
+.vscode
+node_modules
+package-lock.json

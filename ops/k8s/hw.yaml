@@ -1,0 +1,45 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: hw-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: hw
+  template:
+    metadata:
+      labels:
+        app: hw
+    spec:
+      containers:
+        - name: hw-container
+          image: docker.io/discoridedev/node-web-app
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: hw-service
+spec:
+  ports:
+    - name: http
+      targetPort: 8080
+      port: 80
+  selector:
+    app: hw
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: hw-ingress
+  annotations:
+    kubernetes.io/ingress.class: traefik
+spec:
+  rules:
+    - host: hw.localhost
+      http:
+        paths:
+          - path: /
+            backend:
+              serviceName: hw-service
+              servicePort: http
