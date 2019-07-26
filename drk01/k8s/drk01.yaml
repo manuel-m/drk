@@ -1,0 +1,37 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: drk01-deployment
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: drk01
+  template:
+    metadata:
+      labels:
+        app: drk01
+    spec:
+      containers:
+        - name: drk01-container
+          image: localhost:5000/drk/drk01:latest
+          imagePullPolicy: 'Always'
+          ports:
+            - containerPort: 3000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: drk01-service
+  labels:
+    app: drk01
+spec:
+  selector:
+    app: drk01
+  ports:
+    - port: 3000
+      protocol: TCP
+      nodePort: 30001
+  type: LoadBalancer
+---
+

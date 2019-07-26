@@ -1,0 +1,39 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: drk02-ingress
+  annotations:
+    traefik.ingress.kubernetes.io/rewrite-target: /
+    traefik.ingress.kubernetes.io/service-weights: |
+      drk02-banana-service: 80%
+      drk02-coconut-service: 20%
+spec:
+  rules:
+    - http:
+        paths:
+          - path: /
+            backend:
+              serviceName: drk02-banana-service
+              servicePort: 3001
+          - path: /
+            backend:
+              serviceName: drk02-coconut-service
+              servicePort: 3002
+# apiVersion: extensions/v1beta1
+# kind: Ingress
+# metadata:
+#   name: drk02-ingress
+#   annotations:
+#     traefik.ingress.kubernetes.io/rewrite-target: /
+# spec:
+#   rules:
+#     - http:
+#         paths:
+#           - path: /banana
+#             backend:
+#               serviceName: drk02-banana-service
+#               servicePort: 3001
+#           - path: /coconut
+#             backend:
+#               serviceName: drk02-coconut-service
+#               servicePort: 3002

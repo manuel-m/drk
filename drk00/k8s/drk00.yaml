@@ -1,45 +1,46 @@
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: hw-deployment
+  name: drk00-deployment
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: hw
+      app: drk00
   template:
     metadata:
       labels:
-        app: hw
+        app: drk00
     spec:
       containers:
-        - name: hw-container
-          image: docker.io/discoridedev/node-web-app
+        - name: drk00-container
+          image: localhost:5000/drk/node-web-app:latest
+          imagePullPolicy: 'Always'
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: hw-service
+  name: drk00-service
 spec:
   ports:
     - name: http
       targetPort: 8080
       port: 80
   selector:
-    app: hw
+    app: drk00
 ---
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
-  name: hw-ingress
+  name: drk00-ingress
   annotations:
     kubernetes.io/ingress.class: traefik
 spec:
   rules:
-    - host: hw.localhost
+    - host: drk00.localhost
       http:
         paths:
           - path: /
             backend:
-              serviceName: hw-service
-              servicePort: http
+              serviceName: drk00-service
+              servicePort: 80
