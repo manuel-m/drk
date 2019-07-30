@@ -44,4 +44,28 @@ export default [
       }),
     ],
   },
+  {
+    input: 'src/watch.index.js',
+    onwarn(warning, warn) {
+      if (warning.code === 'EVAL') return;
+
+      warn(warning);
+    },
+    output: {
+      file: 'watch.js',
+      format: 'cjs',
+      interop: false,
+    },
+    external,
+    plugins: [
+      terser({
+        mangle: false,
+      }),
+      prettier({
+        tabWidth: 2,
+        singleQuote: true,
+        parser: 'babel',
+      }),
+    ],
+  },
 ];

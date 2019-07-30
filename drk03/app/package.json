@@ -2,11 +2,11 @@
   "name": "drk03-app",
   "version": "0.0.3",
   "description": "",
-  "main": "app.js",
+  "main": "watch.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "rollup -c",
-    "start": "node app.js",
+    "start": "node watch.js",
     "lib": "rollup -c rollup.config.lib.js",
     "dev": "rollup -cw"
   },
