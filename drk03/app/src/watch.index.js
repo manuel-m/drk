@@ -5,7 +5,7 @@ const appPath = './app.js';
 
 let app = respawn();
 
-watchFile(appPath, (curr, prev) => {
+watchFile(appPath, () => {
   console.log(`[RUN] ${appPath}`);
   app.kill();
 
